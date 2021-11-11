@@ -2,7 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Others
+.csv
 _ignore/
+
 
 # C extensions
 *.so
