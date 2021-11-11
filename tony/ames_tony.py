@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import Ridge
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn import linear_model
@@ -9,30 +10,29 @@ from sklearn import linear_model
 ah = pd.read_csv('Ames_Housing_Price_Data.csv', index_col=0,low_memory=False)
 ar = pd.read_csv('Ames_Real_Estate_Data.csv', index_col=0,low_memory=False)
 
-
-#---------------------------------------- SEPARATE TARGET VARIABLE -----------------------------#
-sale_p = ah.SalePrice
-#-----------------------------------------------------------------------------------------------#
-
-#---------------------------------------- DROP COLS WITH HIGH MISSINGNESS ----------------------#
-ah = ah.drop(['Alley','FireplaceQu','PoolQC','Fence','MiscFeature','MiscVal','SalePrice'],axis=1)
-#-----------------------------------------------------------------------------------------------#
-
 #---------------------------------------- FIND MISSING DATA ------------------------------------#
 missingRows = ah.isnull().any(axis=1)
 missingCols = ah.isnull().any(axis=0)
 #-----------------------------------------------------------------------------------------------#
 
+#---------------------------------------- DROP COLS WITH HIGH MISSINGNESS ----------------------#
+ah = ah.drop(['Alley','FireplaceQu','PoolQC','Fence','MiscFeature','MiscVal'],axis=1)
+#-----------------------------------------------------------------------------------------------#
+
 #---------------------------------------- REMOVE ROWS WITH NAs ---------------------------------#
-ah = ah[~missingRows]
+# ah = ah[~missingRows]
+#-----------------------------------------------------------------------------------------------#
+
+#---------------------------------------- SEPARATE TARGET VARIABLE -----------------------------#
+sale_p = ah.SalePrice
 #-----------------------------------------------------------------------------------------------#
 
 #---------------------------------------- ORGANIZE CATAGORICAL FEATURES ------------------------#
-categorical = ah[['MSZoning','Street','LotShape','LandContour','Utilities','LotConfig','LandSlope','Neighborhood',
-'Condition1','Condition2','BldgType','HouseStyle','OverallQual','OverallCond','YearBuilt','YearRemodAdd','RoofStyle',
-'RoofMatl','Exterior1st','Exterior2nd','MasVnrType','ExterQual','ExterCond','Foundation','BsmtQual','BsmtCond','BsmtExposure',
-'BsmtFinType1','BsmtFinType2','Heating','HeatingQC','CentralAir','Electrical','BsmtFullBath','BsmtHalfBath','FullBath','HalfBath','BedroomAbvGr',
-'KitchenAbvGr','KitchenQual','Functional','Fireplaces','GarageType','GarageFinish','GarageQual','GarageCond','PavedDrive','SaleType','SaleCondition']]
+# categorical = ah[['MSZoning','Street','LotShape','LandContour','Utilities','LotConfig','LandSlope','Neighborhood',
+# 'Condition1','Condition2','BldgType','HouseStyle','OverallQual','OverallCond','YearBuilt','YearRemodAdd','RoofStyle',
+# 'RoofMatl','Exterior1st','Exterior2nd','MasVnrType','ExterQual','ExterCond','Foundation','BsmtQual','BsmtCond','BsmtExposure',
+# 'BsmtFinType1','BsmtFinType2','Heating','HeatingQC','CentralAir','Electrical','BsmtFullBath','BsmtHalfBath','FullBath','HalfBath','BedroomAbvGr',
+# 'KitchenAbvGr','KitchenQual','Functional','Fireplaces','GarageType','GarageFinish','GarageQual','GarageCond','PavedDrive','SaleType','SaleCondition']]
 #-----------------------------------------------------------------------------------------------#
 
 #---------------------------------------- neighborhoods to section of town ---------------------#
@@ -105,22 +105,20 @@ ah['city_sec'] = new_hoods
 ah['CentralAir'] = ah['CentralAir'].map(lambda x: 0 if x == 'N' else 1)
 #-----------------------------------------------------------------------------------------------#
 
+#---------------------------------------- does house have fireplace? -> 1 and 0 ----------------#
+ah['gotFire'] = ah['Fireplaces'].map(lambda x: 1 if x >= 1 else 0)
+#-----------------------------------------------------------------------------------------------#
 
+#---------------------------------------- simple feature list for test logistic reg ------------#
+simpFeatures = ah[['CentralAir','gotFire']]
+#-----------------------------------------------------------------------------------------------#
 
-
-
-
-
-
-# simpFeatures = ah[['']]
-
-# Neighborhood:
-# Central Air
-# Fireplaces
-
-
-
-
-
-
-
+#---------------------------------------- need to do preprocessing before fitting --------------#
+# logistic = LogisticRegression(C=1e4, solver='lbfgs', multi_class='auto')
+# logistic.fit(simpFeatures,sale_p)
+# print(logistic.score(simpFeatures,sale_p))
+# /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
+# STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+# Increase the number of iterations (max_iter) or scale the data as shown in:
+#     https://scikit-learn.org/stable/modules/preprocessing.html
+#-----------------------------------------------------------------------------------------------#
