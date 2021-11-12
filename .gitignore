@@ -4,9 +4,7 @@ __pycache__/
 *$py.class
 
 # Others
-.csv
 _ignore/
-
 
 # C extensions
 *.so
