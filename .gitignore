@@ -5,6 +5,7 @@ __pycache__/
 
 # Others
 _ignore/
+*.csv
 
 # C extensions
 *.so
