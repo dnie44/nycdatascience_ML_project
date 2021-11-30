@@ -1,5 +1,5 @@
-# nycdatascience_ML_project
-<br>
+## PREDICTING HOUSE PRICE AFTER HOME IMPROVEMENT & RENOVATIONS
+#### NYCdatascience machine learning project
 
 Ames is a small city in Iowa with a population of about 65,000 and is the college town of Iowa State University. The Ames housing dataset consists of 2578 house records and includes sale prices and individual house attributes.
 
