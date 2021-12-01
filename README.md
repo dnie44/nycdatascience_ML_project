@@ -1,4 +1,4 @@
-## PREDICTING HOUSE PRICE AFTER HOME IMPROVEMENT & RENOVATIONS
+## Home Improvement Machine Learning: Predicting House Price After Renovation
 #### NYCdatascience machine learning project
 
 Ames is a small city in Iowa with a population of about 65,000 and is the college town of Iowa State University. The Ames housing dataset consists of 2578 house records and includes sale prices and individual house attributes.
@@ -10,9 +10,11 @@ The project stakeholders include:
 * Used by renovation contractors or home improvement retailers to let customers know the increase in house value after construction
 * Homeowners looking to renovate and determine a reasonable price to pay
 
-Click [here](https://share.streamlit.io/dnie44/nycdatascience_ml_app/app.py) to try the app
+After rigorous EDA, feature selection and feature engineering, predictions were tested using various models including penalized linear regression, random forest, and various gradient boosting algorithms (SciKit-learn GBR, CatBoost, LightGBM, XGBoost). The final model used in the home renovation app uses [Catboost](https://catboost.ai/).<br> 
+Click [here](https://share.streamlit.io/dnie44/nycdatascience_ml_app/app.py) to try the app.
+<br>
 
-Presentation slides: .....
+Presentation slides: [here](https://docs.google.com/presentation/d/1b0HYMokVrJFnWw82tkU5d0Oeu4p8LNlKCCadrlv9b2M/)
 
 ### Project Collaborators
 [Daniel Nie](https://github.com/dnie44)<br>
